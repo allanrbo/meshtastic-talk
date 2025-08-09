@@ -1,0 +1,13 @@
+file_format: 1
+id: print_tags
+label: print_tags
+category: '[User]'
+parameters:
+  - id: prefix
+    default: ""
+inputs:
+  - domain: stream
+    dtype: complex
+templates:
+  imports: "import print_tags"
+  make: "print_tags.blk(${prefix})"

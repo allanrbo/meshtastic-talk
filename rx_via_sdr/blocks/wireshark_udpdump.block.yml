@@ -1,0 +1,15 @@
+file_format: 1
+id: wireshark_udpdump
+label: wireshark_udpdump
+category: '[User]'
+parameters:
+  - id: prefix_bytes
+    type: str
+    default: 'b""'
+inputs:
+  - domain: message
+    id: msg
+outputs:
+templates:
+  imports: "from wireshark_udpdump import wireshark_udpdump"
+  make: "wireshark_udpdump(${prefix_bytes})"

@@ -1,0 +1,694 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: lora_module_experiment
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: run
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: ''
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: bw
+  id: variable
+  parameters:
+    comment: ''
+    value: '500000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 248.0]
+    rotation: 0
+    state: enabled
+- name: center_freq
+  id: variable
+  parameters:
+    comment: ''
+    value: '917250000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [216, 128.0]
+    rotation: 0
+    state: enabled
+- name: center_freq_offset
+  id: variable_qtgui_range
+  parameters:
+    comment: 'worked before...: -2165000'
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: -10e6
+    step: '1000'
+    stop: 10e6
+    value: -1e6
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 280.0]
+    rotation: 0
+    state: enabled
+- name: center_freq_offset
+  id: variable
+  parameters:
+    comment: alternative, if the QT GUI is disabled
+    value: -1e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [152, 400.0]
+    rotation: 0
+    state: disabled
+- name: cr
+  id: variable
+  parameters:
+    comment: ''
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1136, 496.0]
+    rotation: 0
+    state: enabled
+- name: decimation
+  id: variable
+  parameters:
+    comment: ''
+    value: '4'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [584, 360.0]
+    rotation: 0
+    state: true
+- name: has_crc
+  id: variable
+  parameters:
+    comment: ''
+    value: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 672.0]
+    rotation: 0
+    state: enabled
+- name: impl_head
+  id: variable
+  parameters:
+    comment: ''
+    value: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [776, 248.0]
+    rotation: 0
+    state: enabled
+- name: pay_len
+  id: variable
+  parameters:
+    comment: ''
+    value: '255'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1136, 672.0]
+    rotation: 0
+    state: true
+- name: preamb_len
+  id: variable
+  parameters:
+    comment: ''
+    value: '16'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [864, 248.0]
+    rotation: 0
+    state: true
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 8e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [192, 8.0]
+    rotation: 0
+    state: enabled
+- name: sf
+  id: variable
+  parameters:
+    comment: ''
+    value: '7'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [776, 320.0]
+    rotation: 0
+    state: enabled
+- name: soft_decoding
+  id: variable
+  parameters:
+    comment: ''
+    value: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [848, 320.0]
+    rotation: 0
+    state: enabled
+- name: sync_word
+  id: variable
+  parameters:
+    comment: 'Looks like sync_word of 0
+
+      makes it skip sync word check.'
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 320.0]
+    rotation: 0
+    state: enabled
+- name: taps
+  id: variable_low_pass_filter_taps
+  parameters:
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: bw/2
+    gain: '1.0'
+    samp_rate: samp_rate
+    value: ''
+    width: 400e3
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 292.0]
+    rotation: 0
+    state: true
+- name: epy_block_0_1_1
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport pmt\n\nclass\
+      \ payload_crc_sink(gr.basic_block):\n    def __init__(self):\n        gr.basic_block.__init__(\n\
+      \            self,\n            name=\"payload_crc_sink\",\n            in_sig=[np.uint8,\
+      \ np.uint8],\n            out_sig=[]\n        )\n\n        # message output\
+      \ port\n        self._out_port = pmt.intern(\"out\")\n        self.message_port_register_out(self._out_port)\n\
+      \n    def general_work(self, input_items, output_items):\n        payload =\
+      \ input_items[0]\n        crc_check   = input_items[1]\n\n        if len(crc_check)\
+      \ == 0:\n            return\n\n        crc_ok = bool(crc_check[0])\n       \
+      \ if not crc_ok:\n            print(\"Bad CRC. Frame dropped.\")\n        else:\n\
+      \            pkt = bytes(payload)\n            if crc_ok and pkt:\n        \
+      \        vec = pmt.to_pmt(np.frombuffer(pkt, dtype=np.uint8))\n            \
+      \    self.message_port_pub(self._out_port, vec)\n\n        self.consume(0, len(payload))\n\
+      \        self.consume(1, len(crc_check))\n        return 0\n"
+    affinity: ''
+    alias: ''
+    comment: 'Seems there''s a bug with payload_char tags.
+
+      And "CRC Verif"''s msg output doesn''t tell
+
+      whether CRC was valid or not.
+
+      Therefore we use this strange combiner
+
+      block, that keeps trying bytes to read from
+
+      payload_char output until it is also able to
+
+      get 1 byte from the crc_check outupt.'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('payload_crc_sink', 'payload_crc_sink', [], [('0', 'byte', 1), ('1',
+      'byte', 1)], [('out', 'message', 1)], '', [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1576, 904.0]
+    rotation: 180
+    state: enabled
+- name: freq_xlating_fir_filter_xxx_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: -center_freq_offset
+    comment: ''
+    decim: decimation
+    maxoutbuf: '0'
+    minoutbuf: '65536'
+    samp_rate: samp_rate
+    taps: taps
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 456.0]
+    rotation: 0
+    state: enabled
+- name: lora_sdr_crc_verif_0
+  id: lora_sdr_crc_verif
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    output_crc_check: 'True'
+    print_rx_msg: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1464, 736.0]
+    rotation: 0
+    state: enabled
+- name: lora_sdr_deinterleaver_0
+  id: lora_sdr_deinterleaver
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    soft_decoding: soft_decoding
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1152, 424.0]
+    rotation: 0
+    state: enabled
+- name: lora_sdr_dewhitening_0
+  id: lora_sdr_dewhitening
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1376, 688.0]
+    rotation: 0
+    state: enabled
+- name: lora_sdr_fft_demod_0
+  id: lora_sdr_fft_demod
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    max_log_approx: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    soft_decoding: soft_decoding
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 256.0]
+    rotation: 0
+    state: enabled
+- name: lora_sdr_frame_sync_0
+  id: lora_sdr_frame_sync
+  parameters:
+    affinity: ''
+    alias: ''
+    bandwidth: bw
+    center_freq: int(center_freq)
+    comment: ''
+    impl_head: impl_head
+    maxoutbuf: '0'
+    minoutbuf: '65536'
+    os_factor: int((samp_rate/decimation)/bw)
+    preamb_len: preamb_len
+    sf: sf
+    show_log_port: 'False'
+    sync_word: sync_word
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [824, 424.0]
+    rotation: 0
+    state: enabled
+- name: lora_sdr_gray_mapping_0
+  id: lora_sdr_gray_mapping
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    soft_decoding: soft_decoding
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1096, 336.0]
+    rotation: 0
+    state: enabled
+- name: lora_sdr_hamming_dec_0
+  id: lora_sdr_hamming_dec
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    soft_decoding: soft_decoding
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1224, 496.0]
+    rotation: 0
+    state: enabled
+- name: lora_sdr_header_decoder_0
+  id: lora_sdr_header_decoder
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    cr: cr
+    has_crc: has_crc
+    impl_head: impl_head
+    ldro: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    pay_len: pay_len
+    print_header: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1224, 584.0]
+    rotation: 0
+    state: enabled
+- name: meshtastic_parse_0
+  id: meshtastic_parse
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decrypt: 'True'
+    encryption_keys: '{"ShortTurbo": "1PG7OiApB1nwvP+rz05pAQ==", "DEFCONnect": "OEu8wB3AItGBvza4YSHh+5a3LlW/dCJ+nWr7SNZMsaE=",
+      "HackerComms": "6IzsaoVhx1ETWeWuu0dUWMLqItvYJLbRzwgTAKCfvtY=", "NodeChat": "TiIdi8MJG+IRnIkS8iUZXRU+MHuGtuzEasOWXp4QndU=",
+      "equalbeat": "06lGUq+WhpsOt/weuKcesGzFVZ6HQx3rwWyS8liJhzY="}'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    print_msg: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1304, 960.0]
+    rotation: 180
+    state: enabled
+- name: print_bytes_0
+  id: print_bytes
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    prefix: '"Deinterleaver  "'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1360, 424.0]
+    rotation: 0
+    state: disabled
+- name: print_bytes_1
+  id: print_bytes
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    prefix: '"Hamming dec    "'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1464, 496.0]
+    rotation: 0
+    state: disabled
+- name: print_bytes_2
+  id: print_bytes
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    prefix: '"Header decoder "'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 584.0]
+    rotation: 0
+    state: disabled
+- name: print_bytes_3
+  id: print_bytes
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    prefix: '"Dewhitening    "'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1568, 680.0]
+    rotation: 0
+    state: disabled
+- name: print_bytes_4
+  id: print_bytes
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    prefix: '"CRC verif      "'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1752, 728.0]
+    rotation: 0
+    state: disabled
+- name: print_int16_0
+  id: print_int16
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    prefix: '"fft_demod      "'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 256.0]
+    rotation: 0
+    state: disabled
+- name: print_int16_1
+  id: print_int16
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    prefix: '"Gray mapping   "'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1304, 336.0]
+    rotation: 0
+    state: disabled
+- name: print_tags_0
+  id: print_tags
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    prefix: '"Frame sync    "'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [976, 560.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_waterfall_sink_x_0
+  id: qtgui_waterfall_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    axislabels: 'True'
+    bw: samp_rate/decimation
+    color1: '0'
+    color10: '0'
+    color2: '0'
+    color3: '0'
+    color4: '0'
+    color5: '0'
+    color6: '0'
+    color7: '0'
+    color8: '0'
+    color9: '0'
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    int_max: '10'
+    int_min: '-140'
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    showports: 'False'
+    type: complex
+    update_time: '0.01'
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [632, 592.0]
+    rotation: 0
+    state: enabled
+- name: soapy_hackrf_source_0
+  id: soapy_hackrf_source
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: 'False'
+    bandwidth: '0'
+    center_freq: center_freq + center_freq_offset
+    comment: ''
+    dev_args: ''
+    gain: '16'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    type: fc32
+    vga: '16'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 200.0]
+    rotation: 0
+    state: enabled
+- name: wireshark_udpdump_0
+  id: wireshark_udpdump
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    prefix_bytes: b"_meshtastic_____"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1048, 1032.0]
+    rotation: 180
+    state: enabled
+
+connections:
+- [epy_block_0_1_1, out, meshtastic_parse_0, msg]
+- [freq_xlating_fir_filter_xxx_0, '0', lora_sdr_frame_sync_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', qtgui_waterfall_sink_x_0, '0']
+- [lora_sdr_crc_verif_0, '0', epy_block_0_1_1, '0']
+- [lora_sdr_crc_verif_0, '0', print_bytes_4, '0']
+- [lora_sdr_crc_verif_0, '1', epy_block_0_1_1, '1']
+- [lora_sdr_deinterleaver_0, '0', lora_sdr_hamming_dec_0, '0']
+- [lora_sdr_deinterleaver_0, '0', print_bytes_0, '0']
+- [lora_sdr_dewhitening_0, '0', lora_sdr_crc_verif_0, '0']
+- [lora_sdr_dewhitening_0, '0', print_bytes_3, '0']
+- [lora_sdr_fft_demod_0, '0', lora_sdr_gray_mapping_0, '0']
+- [lora_sdr_fft_demod_0, '0', print_int16_0, '0']
+- [lora_sdr_frame_sync_0, '0', lora_sdr_fft_demod_0, '0']
+- [lora_sdr_frame_sync_0, '0', print_tags_0, '0']
+- [lora_sdr_gray_mapping_0, '0', lora_sdr_deinterleaver_0, '0']
+- [lora_sdr_gray_mapping_0, '0', print_int16_1, '0']
+- [lora_sdr_hamming_dec_0, '0', lora_sdr_header_decoder_0, '0']
+- [lora_sdr_hamming_dec_0, '0', print_bytes_1, '0']
+- [lora_sdr_header_decoder_0, '0', lora_sdr_dewhitening_0, '0']
+- [lora_sdr_header_decoder_0, '0', print_bytes_2, '0']
+- [lora_sdr_header_decoder_0, frame_info, lora_sdr_frame_sync_0, frame_info]
+- [meshtastic_parse_0, msg_out, wireshark_udpdump_0, msg]
+- [soapy_hackrf_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.12.0

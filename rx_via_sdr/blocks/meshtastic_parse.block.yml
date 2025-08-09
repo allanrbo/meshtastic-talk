@@ -1,0 +1,25 @@
+file_format: 1
+id: meshtastic_parse
+label: meshtastic_parse
+category: '[User]'
+parameters:
+  - id: print_msg
+    type: bool
+    default: False
+  - id: encryption_keys
+    type: dict
+    default: {}
+  - id: decrypt
+    type: bool
+    default: True
+    callback: set_decrypt(${decrypt})
+inputs:
+-   domain: message
+    id: msg
+outputs:
+  - domain: message
+    id: msg_out
+    optional: true
+templates:
+  imports: "from meshtastic_parse import meshtastic_parse"
+  make: "meshtastic_parse(${print_msg}, ${decrypt}, ${encryption_keys})"

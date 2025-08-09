@@ -1,0 +1,15 @@
+file_format: 1
+id: print_int16
+label: print_int16
+category: '[User]'
+parameters:
+  - id: prefix
+    type: string
+    default: ""
+inputs:
+  - domain: stream
+    dtype: short
+outputs:
+templates:
+  imports: "import print_int16"
+  make: "print_int16.blk(${prefix})"

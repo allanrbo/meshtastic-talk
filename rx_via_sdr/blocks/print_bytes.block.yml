@@ -1,0 +1,13 @@
+file_format: 1
+id: print_bytes
+label: print_bytes
+category: '[User]'
+parameters:
+  - id: prefix
+    default: ""
+inputs:
+  - domain: stream
+    dtype: byte
+templates:
+  imports: "import print_bytes"
+  make: "print_bytes.blk(${prefix})"
