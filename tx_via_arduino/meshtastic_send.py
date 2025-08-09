@@ -23,6 +23,7 @@ PORT = '/dev/ttyACM0'
 DEST = 0xFFFFFFFF
 SENDER = 0xCAFED00D
 HOP_LIMIT = 1
+
 CHAN_NAME = "equalbeat"
 PSK = base64.b64decode("06lGUq+WhpsOt/weuKcesGzFVZ6HQx3rwWyS8liJhzY=")
 # CHAN_NAME = "DEFCONnect"
@@ -31,6 +32,7 @@ PSK = base64.b64decode("06lGUq+WhpsOt/weuKcesGzFVZ6HQx3rwWyS8liJhzY=")
 # PSK = base64.b64decode("6IzsaoVhx1ETWeWuu0dUWMLqItvYJLbRzwgTAKCfvtY=")
 # CHAN_NAME = "NodeChat"
 # PSK = base64.b64decode("TiIdi8MJG+IRnIkS8iUZXRU+MHuGtuzEasOWXp4QndU=")
+
 
 def xor_hash(bs:bytes)->int:
     h = 0
@@ -61,7 +63,7 @@ ch = channel_hash(CHAN_NAME, PSK)
 hop_start = HOP_LIMIT
 flags = (HOP_LIMIT & 0x07) | ((hop_start & 0x07) << 5)
 data_enc = aes_ctr_encrypt(PSK, SENDER, packet_id, data_plain)
-# L1 header format described in https://meshtastic.org/docs/overview/mesh-algo/
+# Layer-1 header format described in https://meshtastic.org/docs/overview/mesh-algo/
 hdr = struct.pack('<IIIBBBB', DEST, SENDER, packet_id, flags, ch, 0, 0)
 packet = hdr + data_enc
 

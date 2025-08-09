@@ -54,13 +54,17 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [216, 128.0]
+    coordinate: [208, 136.0]
     rotation: 0
     state: enabled
 - name: center_freq_offset
   id: variable_qtgui_range
   parameters:
-    comment: 'worked before...: -2165000'
+    comment: 'This is to workaround
+
+      HackRF''s DC spike.
+
+      Remove with other SDRs.'
     gui_hint: ''
     label: ''
     min_len: '200'
@@ -75,7 +79,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 280.0]
+    coordinate: [184, 312.0]
     rotation: 0
     state: enabled
 - name: center_freq_offset
@@ -87,7 +91,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [152, 400.0]
+    coordinate: [64, 312.0]
     rotation: 0
     state: disabled
 - name: cr
@@ -111,7 +115,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [584, 360.0]
+    coordinate: [568, 392.0]
     rotation: 0
     state: true
 - name: has_crc
@@ -227,7 +231,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [432, 292.0]
+    coordinate: [424, 328.0]
     rotation: 0
     state: true
 - name: epy_block_0_1_1
@@ -278,7 +282,7 @@ blocks:
     affinity: ''
     alias: ''
     center_freq: -center_freq_offset
-    comment: ''
+    comment: Move signal to 0 and filter to bandwidth
     decim: decimation
     maxoutbuf: '0'
     minoutbuf: '65536'
@@ -297,7 +301,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: Error detection
     maxoutbuf: '0'
     minoutbuf: '0'
     output_crc_check: 'True'
@@ -314,7 +318,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: Spread bits over multiple symbols
     maxoutbuf: '0'
     minoutbuf: '0'
     soft_decoding: soft_decoding
@@ -322,7 +326,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1152, 424.0]
+    coordinate: [1160, 400.0]
     rotation: 0
     state: enabled
 - name: lora_sdr_dewhitening_0
@@ -330,14 +334,16 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: 'De-scrambling for
+
+      long-run avoidance'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1376, 688.0]
+    coordinate: [1360, 680.0]
     rotation: 0
     state: enabled
 - name: lora_sdr_fft_demod_0
@@ -345,7 +351,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: "Thanks Joachim Tapparel \nfor these LoRa decoding blocks!"
     max_log_approx: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -354,7 +360,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1032, 256.0]
+    coordinate: [1032, 208.0]
     rotation: 0
     state: enabled
 - name: lora_sdr_frame_sync_0
@@ -385,7 +391,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: Reduce impact of errors
     maxoutbuf: '0'
     minoutbuf: '0'
     soft_decoding: soft_decoding
@@ -393,7 +399,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1096, 336.0]
+    coordinate: [1136, 312.0]
     rotation: 0
     state: enabled
 - name: lora_sdr_hamming_dec_0
@@ -401,7 +407,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: Forward error correction
     maxoutbuf: '0'
     minoutbuf: '0'
     soft_decoding: soft_decoding
@@ -409,7 +415,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1224, 496.0]
+    coordinate: [1240, 496.0]
     rotation: 0
     state: enabled
 - name: lora_sdr_header_decoder_0
@@ -445,7 +451,7 @@ blocks:
       "equalbeat": "06lGUq+WhpsOt/weuKcesGzFVZ6HQx3rwWyS8liJhzY="}'
     maxoutbuf: '0'
     minoutbuf: '0'
-    print_msg: 'True'
+    print_msg: 'False'
   states:
     bus_sink: false
     bus_source: false
@@ -464,7 +470,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1360, 424.0]
+    coordinate: [1376, 416.0]
     rotation: 0
     state: disabled
 - name: print_bytes_1
@@ -528,15 +534,19 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: 'With spread factor of 10
+
+      we should expect 2^10=1024
+
+      as max symbol'
     prefix: '"fft_demod      "'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1264, 256.0]
+    coordinate: [1296, 184.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: print_int16_1
   id: print_int16
   parameters:
@@ -548,7 +558,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1304, 336.0]
+    coordinate: [1328, 336.0]
     rotation: 0
     state: disabled
 - name: print_tags_0

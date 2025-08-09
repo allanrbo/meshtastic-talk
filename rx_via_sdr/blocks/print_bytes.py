@@ -21,8 +21,8 @@ class blk(gr.sync_block):
             rel = t.offset - start
             key = pmt.to_python(t.key)
             val = pmt.to_python(t.value)
-            self.logger.debug(f"{self.prefix}: tag at {rel}: {key} = {val}")
+            self.logger.info(f"{self.prefix}: tag at {rel}: {key} = {val}")
 
-        self.logger.debug(f"{self.prefix}: {input_items[0]}")
+        self.logger.info(f"{self.prefix}: {input_items[0]}")
 
         return len(input_items[0])

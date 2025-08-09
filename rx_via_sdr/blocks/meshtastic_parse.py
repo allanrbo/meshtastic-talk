@@ -166,6 +166,8 @@ class meshtastic_parse(gr.basic_block):
 
         # attempt decryption and parse layer-2 protobuf
         if self.decrypt:
+            # TODO: actually it's more correct to attempt decrytion
+            # with all keys in case there's a hash collision...
             key = PSK_MAP.get(hdr["channel_hash"])
             if key:
                 try:
