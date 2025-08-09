@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-# Minimal Meshtastic sender using a LoRa relay Arduino (no SDK)
+# Minimal Meshtastic sender using a LoRa relay Arduino
 #
 # - Configures modem (ShortTurbo), builds meshtastic.Data via mesh_pb2,
 #   AES‑CTR encrypts it, prepends L1 header and sends via "DATA <hex>".
 
 import os, sys, time, serial, secrets, struct, base64
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from time import sleep
 
 # I have my protoc output in this path, so if you have properly
 # installed it or have it in a different path, you wont need this path hack...
@@ -25,7 +26,7 @@ HOP_LIMIT = 1
 CHAN_NAME = "equalbeat"
 PSK = base64.b64decode("06lGUq+WhpsOt/weuKcesGzFVZ6HQx3rwWyS8liJhzY=")
 # CHAN_NAME = "DEFCONnect"
-# PSK = base64.b64decode("OEu8wB3AItGBvza4YSHh+5a3LlW/dCJ+nWr7SNZMsaE="
+# PSK = base64.b64decode("OEu8wB3AItGBvza4YSHh+5a3LlW/dCJ+nWr7SNZMsaE=")
 # CHAN_NAME = "HackerComms"
 # PSK = base64.b64decode("6IzsaoVhx1ETWeWuu0dUWMLqItvYJLbRzwgTAKCfvtY=")
 # CHAN_NAME = "NodeChat"
@@ -61,7 +62,7 @@ hop_start = HOP_LIMIT
 flags = (HOP_LIMIT & 0x07) | ((hop_start & 0x07) << 5)
 data_enc = aes_ctr_encrypt(PSK, SENDER, packet_id, data_plain)
 # L1 header format described in https://meshtastic.org/docs/overview/mesh-algo/
-hdr = struct.pack('<III4B', DEST, SENDER, packet_id, flags, ch, 0, 0)
+hdr = struct.pack('<IIIBBBB', DEST, SENDER, packet_id, flags, ch, 0, 0)
 packet = hdr + data_enc
 
 # Send to Arduino
