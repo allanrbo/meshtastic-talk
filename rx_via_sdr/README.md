@@ -5,17 +5,15 @@ apt install build-essential cmake gnuradio-dev protobuf-compiler python3-protobu
 ./run_grc.sh
 
 # In another terminal window
+cd ../wireshark
 ./run_wireshark.sh
 
 ```
 
-
-If you don't have the above mentioned Protobuf search paths configured correctly, all packets will show up as UNKNOWN_APP, and Protobuf decoding will generally not function correctly.
-
 If emojis aren't showing up correctly in Wireshark, try this:
 ```
 mkdir -p ~/.config/fontconfig/conf.d/
-cat > ~/.config/fontconfig/conf.d/40-emoji.conf <<"EOF"
+cat > ~/.config/tconfig/co/conf.d/40-emoji.conf <<"EOF"
 <?xml version="1.0"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
